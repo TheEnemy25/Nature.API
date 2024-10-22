@@ -1,56 +1,59 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Nature.Data.Entities.Interfaces;
-using Nature.Data.Exceptions;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Nature.Data.Infrastructure;
+using Nature.Infrastructure.Dtos.Base;
+using Nature.Infrastructure.Entities.Interfaces;
+using Nature.Infrastructure.Exceptions;
 
 namespace Nature.Domain.Services.BaseService
 {
-    public abstract class BaseService<TEntity> : IBaseService<TEntity>
-       where TEntity : class, IEntity
+    internal abstract class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
+        where TEntity : class, IEntityWithId
+        where TDto : DtoBase
     {
         protected readonly IBaseRepository<TEntity> _repository;
+        protected readonly IMapper _mapper;
 
-        public BaseService(IBaseRepository<TEntity> repository)
+        public BaseService(IBaseRepository<TEntity> repository, IMapper mapper)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
-        {
-            return await _repository.Query().ToListAsync(cancellationToken);
-        }
+        public virtual async Task<IEnumerable<TDto>> GetAllAsync(CancellationToken cancellationToken = default) =>
+                   await _repository.Query().Select(entity => _mapper.Map<TDto>(entity)).ToListAsync(cancellationToken);
 
-        public async Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-        {
-            return await _repository.GetByIdAsync(id);
-        }
+        public virtual async Task<TDto> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) =>
+            _mapper.Map<TDto>(await _repository.GetByIdAsync(id));
 
-        public async Task<Guid> CreateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<Guid> CreateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
+            var entity = _mapper.Map<TEntity>(dto);
+
             await _repository.AddAsync(entity, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
 
             return entity.Id;
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default)
+        public virtual async Task<TDto> UpdateAsync(TDto dto, CancellationToken cancellationToken = default)
         {
-            var existingEntity = await _repository.GetByIdAsync(entity.Id);
+            var entity = await _repository.GetByIdAsync(dto.Id);
 
-            if (existingEntity == null)
+            if (entity == null)
             {
                 throw new EntityNotFoundException($"{typeof(TEntity).Name} was not found");
             }
 
-            await _repository.DetachAsync(existingEntity);
+            _mapper.Map(dto, entity);
 
             await _repository.UpdateAsync(entity, cancellationToken);
             await _repository.SaveChangesAsync(cancellationToken);
 
-            return entity;
+            return _mapper.Map<TDto>(entity);
         }
 
-        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public virtual async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             var entityToDelete = await _repository.GetByIdAsync(id);
 

@@ -1,13 +1,15 @@
-﻿using Nature.Data.Entities;
+﻿using AutoMapper;
 using Nature.Data.Infrastructure;
 using Nature.Domain.Services.BaseService;
 using Nature.Domain.Services.Interfaces;
+using Nature.Infrastructure.Dtos;
+using Nature.Infrastructure.Entities;
 
 namespace Nature.Domain.Services.Implementation
 {
-    public class AnimalService : BaseService<Animal>, IAnimalService
+    internal sealed class AnimalService : BaseService<Animal, AnimalDto>, IAnimalService
     {
-        public AnimalService(IBaseRepository<Animal> repository) : base(repository) { }
+        public AnimalService(IBaseRepository<Animal> repository, IMapper mapper) : base(repository, mapper) { }
 
 
     }

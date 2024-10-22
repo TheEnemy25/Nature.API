@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Nature.Data.Entities;
+using Nature.Infrastructure.Entities;
 
 namespace Nature.Data.EntityConfigurations
 {
@@ -13,18 +13,26 @@ namespace Nature.Data.EntityConfigurations
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.Name)
-                .IsRequired()
-                .HasMaxLength(50);
+            builder.Property(p => p.Name).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.Species).HasMaxLength(100);
+            builder.Property(p => p.Description).HasMaxLength(255);
+            builder.Property(p => p.PhotoUrl).HasMaxLength(255);
+            builder.Property(p => p.AudioUrl).HasMaxLength(255);
 
-            builder.Property(p => p.Description)
-                .IsRequired();
+            builder.HasOne(p => p.Habitat)
+                   .WithMany(h => h.Plants)
+                   .HasForeignKey(p => p.HabitatId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(p => p.Habitat)
-                .IsRequired();
 
-            builder.Property(p => p.ImageFilePath)
-                .IsRequired();
+
+            builder.HasMany(p => p.Threats)
+                   .WithMany(t => t.Plants);
+
+            builder.HasMany(p => p.ConservationEfforts)
+                   .WithOne(e => e.Plant)
+                   .HasForeignKey(e => e.PlantId)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -4,24 +4,31 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>3e867c69-36c0-4d80-92ac-caf78533b753</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.33" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.33">
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.35" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.35" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.35">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.33" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.33">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.35" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.35">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Nature.Data\Nature.Data.csproj" />
+    <ProjectReference Include="..\Nature.Application\Nature.Application.csproj" />
     <ProjectReference Include="..\Nature.Domain\Nature.Domain.csproj" />
   </ItemGroup>
 

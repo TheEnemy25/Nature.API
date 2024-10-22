@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Nature.Data.Entities;
+using Nature.Infrastructure.Entities;
 
 namespace Nature.Data.EntityConfigurations
 {
@@ -17,24 +17,35 @@ namespace Nature.Data.EntityConfigurations
                 .IsRequired()
                 .HasMaxLength(50);
 
+            builder.Property(a => a.Species)
+                .HasMaxLength(100);
+
             builder.Property(a => a.Description)
                 .IsRequired();
 
-            builder.Property(a => a.Habitat)
-                .IsRequired();
+            builder.Property(a => a.Behavior)
+                   .HasMaxLength(255);
 
-            builder.Property(a => a.ImageFilePath)
-                .IsRequired();
+            builder.Property(a => a.PhotoUrl)
+                   .HasMaxLength(255);
 
-            builder.Property(a => a.SoundFilePath)
-                .IsRequired(false);
+            builder.Property(a => a.AudioUrl)
+                   .HasMaxLength(255);
 
-            builder.Property(a => a.AnimalType)
-                .IsRequired(false);
+            builder.HasOne(a => a.Habitat)
+                   .WithMany(h => h.Animals)
+                   .HasForeignKey(a => a.HabitatId)
+                   .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Property(a => a.Movement)
-                .IsRequired()
-                .HasConversion<int>();
+            builder.HasMany(a => a.Threats)
+                   .WithMany(t => t.Animals);
+
+            builder.HasMany(a => a.ConservationEfforts)
+                   .WithOne(e => e.Animal)
+                   .HasForeignKey(e => e.AnimalId)
+                   .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(a => a.HabitatId).IsRequired(false);
         }
     }
 }
