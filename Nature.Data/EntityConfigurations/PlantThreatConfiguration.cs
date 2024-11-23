@@ -3,27 +3,26 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Nature.Infrastructure.Entities
 {
-    public class PlantConfiguration : IEntityTypeConfiguration<Plant>
+    public class PlantThreatConfiguration : IEntityTypeConfiguration<PlantThreat>
     {
-        public void Configure(EntityTypeBuilder<Plant> builder)
+        public void Configure(EntityTypeBuilder<PlantThreat> builder)
         {
             // Configure the primary key
-            builder.HasKey(p => p.Id);
+            builder.HasKey(pt => pt.Id);
 
             // Configure the properties
-            builder.Property(p => p.Name)
+            builder.Property(pt => pt.Name)
                 .IsRequired()
                 .HasMaxLength(100); // Adjust the max length if needed
 
-            builder.Property(p => p.Species)
-                .IsRequired()
-                .HasMaxLength(100); // Adjust the max length if needed
-
-            builder.Property(p => p.Description)
+            builder.Property(pt => pt.Description)
                 .HasMaxLength(500); // Optional: Adjust the max length as needed
 
+            builder.Property(pt => pt.PlantId)
+                .IsRequired(); // Ensure that PlantId is required
+
             // Optional: Table name
-            builder.ToTable("Plants");
+            builder.ToTable("PlantThreats");
         }
     }
 }

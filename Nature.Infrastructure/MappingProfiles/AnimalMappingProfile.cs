@@ -11,7 +11,7 @@ namespace Nature.Infrastructure.MappingProfiles
             CreateMap<Animal, AnimalDto>();
             CreateMap<AnimalDto, Animal>()
                 .ForMember(ct => ct.Threats, cfg => cfg.Ignore())
-                .ForMember(ct => ct.ConservationEfforts, cfg => cfg.Ignore());
+                .ForMember(ct => ct.Safekeepings, cfg => cfg.Ignore());
         }
     }
 }

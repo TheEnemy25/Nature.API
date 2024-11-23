@@ -2,7 +2,7 @@
 
 namespace Nature.Infrastructure.Entities
 {
-    public class AppUser : IdentityUser<Guid>
+    public sealed class AppUser : IdentityUser<Guid>
     {
     }
 }

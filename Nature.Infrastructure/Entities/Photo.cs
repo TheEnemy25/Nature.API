@@ -2,13 +2,13 @@
 
 namespace Nature.Infrastructure.Entities
 {
-    public sealed class Observation : IEntityWithId
+    public sealed class Photo : IEntityWithId
     {
         public Guid Id { get; set; }
 
-        public DateTime Date { get; set; }
-        public string Notes { get; set; } = null!;
-        //TODO: Add a constraint to allow just one value
+        public byte[] PhotoBytes { get; set; } = null!;
+        public bool IsPreview { get; set; }
+        //TODO: Add a DB constraint to allow just one value
         public Guid? PlantId { get; set; } = null;
         public Guid? AnimalId { get; set; } = null;
 

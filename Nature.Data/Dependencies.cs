@@ -12,11 +12,9 @@ namespace Nature.Data
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped<IBaseRepository<Animal>, BaseRepository<Animal>>();
-            services.AddScoped<IBaseRepository<ConservationEffort>, BaseRepository<ConservationEffort>>();
             services.AddScoped<IBaseRepository<Habitat>, BaseRepository<Habitat>>();
             services.AddScoped<IBaseRepository<Observation>, BaseRepository<Observation>>();
             services.AddScoped<IBaseRepository<Plant>, BaseRepository<Plant>>();
-            services.AddScoped<IBaseRepository<Threat>, BaseRepository<Threat>>();
 
             return services;
         }
