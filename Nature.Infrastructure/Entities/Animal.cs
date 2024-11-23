@@ -17,6 +17,6 @@ namespace Nature.Infrastructure.Entities
 
         public Habitat Habitat { get; set; }
         public ICollection<Threat> Threats { get; set; }
-        public ICollection<ConservationEffort> ConservationEfforts { get; set; }
+        //public ICollection<ConservationEffort> ConservationEfforts { get; set; }
     }
 }
