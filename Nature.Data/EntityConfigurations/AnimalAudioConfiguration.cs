@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Nature.Infrastructure.Entities;
 
-namespace Nature.Infrastructure.Entities
+namespace Nature.Data.EntityConfigurations
 {
     public class AnimalAudioConfiguration : IEntityTypeConfiguration<AnimalAudio>
     {

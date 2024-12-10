@@ -7,21 +7,17 @@ namespace Nature.Infrastructure.Entities
     {
         public void Configure(EntityTypeBuilder<City> builder)
         {
-            // Configure the primary key
             builder.HasKey(c => c.Id);
 
-            // Configure the properties
             builder.Property(c => c.Name)
                 .IsRequired()
-                .HasMaxLength(100); // Adjust the max length if needed
+                .HasMaxLength(100);
 
-            // Configure the foreign key relationship with Country
             builder.HasOne(c => c.Country)
-                .WithMany() // Assuming a one-to-many relationship, where Country has many Cities
+                .WithMany()
                 .HasForeignKey(c => c.CountryId)
-                .IsRequired(); // Make sure the CountryId is required
+                .IsRequired();
 
-            // Optional: Table name
             builder.ToTable("Cities");
         }
     }

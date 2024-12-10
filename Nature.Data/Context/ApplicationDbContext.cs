@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Nature.Data.EntityConfigurations;
 using Nature.Infrastructure.Entities;
 
 namespace Nature.Data.Context

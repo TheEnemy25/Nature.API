@@ -1,31 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Nature.Infrastructure.Entities;
 
-namespace Nature.Infrastructure.Entities
+namespace Nature.Data.EntityConfigurations
 {
     public class AnimalConfiguration : IEntityTypeConfiguration<Animal>
     {
         public void Configure(EntityTypeBuilder<Animal> builder)
         {
-            // Configure the primary key
             builder.HasKey(a => a.Id);
 
-            // Configure the properties
             builder.Property(a => a.Name)
                 .IsRequired()
-                .HasMaxLength(100); // Adjust the max length if needed
+                .HasMaxLength(100);
 
             builder.Property(a => a.Species)
                 .IsRequired()
-                .HasMaxLength(100); // Adjust the max length if needed
+                .HasMaxLength(100);
 
             builder.Property(a => a.Description)
-                .HasMaxLength(500); // Optional: Adjust the max length as needed
+                .HasMaxLength(500);
 
             builder.Property(a => a.Behavior)
-                .HasMaxLength(500); // Optional: Adjust the max length as needed
+                .HasMaxLength(500);
 
-            // Optional: Table name
             builder.ToTable("Animals");
         }
     }

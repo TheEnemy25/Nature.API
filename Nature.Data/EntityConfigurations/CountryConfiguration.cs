@@ -7,15 +7,13 @@ namespace Nature.Infrastructure.Entities
     {
         public void Configure(EntityTypeBuilder<Country> builder)
         {
-            // Configure the primary key
             builder.HasKey(c => c.Id);
 
             // Configure the properties
             builder.Property(c => c.Name)
                 .IsRequired()
-                .HasMaxLength(100); // Adjust the max length if needed
+                .HasMaxLength(100);
 
-            // Optional: Table name
             builder.ToTable("Countries");
         }
     }

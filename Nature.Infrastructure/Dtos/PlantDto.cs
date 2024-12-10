@@ -8,6 +8,5 @@ namespace Nature.Infrastructure.Dtos
         public string Species { get; init; }
         public string Description { get; init; }
         public string PhotoUrl { get; init; }
-        public string AudioUrl { get; init; }
     }
 }
