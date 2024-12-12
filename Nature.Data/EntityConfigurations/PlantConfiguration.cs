@@ -22,6 +22,9 @@ namespace Nature.Infrastructure.Entities
             builder.Property(p => p.Description)
                 .HasMaxLength(500); // Optional: Adjust the max length as needed
 
+            builder.Property(a => a.PhotoUrl)
+    .HasMaxLength(500);
+
             // Optional: Table name
             builder.ToTable("Plants");
         }

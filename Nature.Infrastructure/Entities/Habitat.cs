@@ -2,6 +2,7 @@
 
 using Nature.Infrastructure.Entities.Interfaces;
 using Nature.Infrastructure.Enums;
+using System.Text.Json.Serialization;
 
 namespace Nature.Infrastructure.Entities
 {
@@ -17,7 +18,9 @@ namespace Nature.Infrastructure.Entities
 
         //TODO: Nav props
         public ReserveArea ReserveArea { get; set; }
+        [JsonIgnore]
         public ICollection<Animal> Animals { get; set; }
+        [JsonIgnore]
         public ICollection<Plant> Plants { get; set; }
     }
 }

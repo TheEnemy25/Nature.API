@@ -24,6 +24,12 @@ namespace Nature.Data.EntityConfigurations
             builder.Property(a => a.Behavior)
                 .HasMaxLength(500);
 
+            builder.Property(a => a.PhotoUrl)
+                .HasMaxLength(500);
+
+            builder.Property(a => a.AudioUrl)
+                .HasMaxLength(500);
+
             builder.ToTable("Animals");
         }
     }
